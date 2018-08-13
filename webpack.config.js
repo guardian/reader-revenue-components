@@ -12,7 +12,7 @@ module.exports = {
     plugins: [
         new HtmlWebpackPlugin({
             inlineSource: '.(js|css)$',
-            template: './src/index.template.html'
+            template: './src/index.html'
         }),
         new ExtractTextPlugin("styles.css"),
         new HtmlWebpackInlineSourcePlugin()
