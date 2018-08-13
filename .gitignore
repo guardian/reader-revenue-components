@@ -1,1 +1,4 @@
 /node_modules/
+/dist/
+# TODO: fix this by copying this asset to /dist/ as part of the build process.
+!/dist/paypal-and-credit-card.png
