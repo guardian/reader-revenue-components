@@ -1,3 +1,6 @@
+import { isDocumentLoaded, read, isPaymentImageLoaded } from './util.js';
+
+
 import './style.css';
 
 function getAcquisitionData() {
@@ -57,10 +60,58 @@ function useLocalCurrencySymbol() {
   } catch (_) {};
 }
 
+// channel for messages between Optimize Epic and Guardian frontend
+const OPTIMIZE_EPIC_CHANNEL = 'OPTIMIZE_EPIC';
+
+// messages in this channel (incoming / outgoing) should have the following schema:
+// { channel: 'OPTIMIZE_EPIC', messageType: string, data: ?any }
+
+// outgoing event types
+const EPIC_INITIALIZED = 'EPIC_INITIALIZED';
+const EPIC_HEIGHT = 'EPIC_HEIGHT';
+
+// incoming event types
+const FONTS = 'FONTS';
+
+function postMessage(messageType, data) {
+  // TODO: target origin
+  window.top.postMessage(JSON.stringify({ channel: OPTIMIZE_EPIC_CHANNEL, messageType, data }), '*');
+}
+
+function getIframeHeight() {
+  return Promise.all([isDocumentLoaded(), isPaymentImageLoaded()])
+    .then(() => read(() => document.querySelector('.js-root-element').getBoundingClientRect().height))
+    .then(height => {
+      console.log(height);
+      return height;
+    })
+}
+
+function postIframeHeightMessage() {
+  getIframeHeight().then(height => postMessage(EPIC_HEIGHT, { height }));
+}
+
+function postEpicInitializedMessage() {
+  getIframeHeight().then(height => {
+      postMessage(EPIC_INITIALIZED, {
+          height,
+          componentId: 'iframe_control_epic', // TODO: perhaps component id could be based on iframe path?
+      });
+  });
+}
+
+function startCommunication() {
+  self.addEventListener('resize', () => {
+      postIframeHeightMessage();
+  });
+
+  postEpicInitializedMessage();
+}
+
 function init() {
-  const acquisitionData = getAcquisitionData();
-  enrichClickThroughURL(acquisitionData);
   useLocalCurrencySymbol();
+  enrichClickThroughURL(getAcquisitionData());
+  startCommunication();
 }
 
 init();
