@@ -1,6 +1,6 @@
 import { isDocumentLoaded, read, isPaymentImageLoaded } from './util.js';
 
-import './style.css';
+import './style.scss';
 
 
 function getAcquisitionData() {
