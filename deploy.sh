@@ -3,7 +3,7 @@
 DIR=$(dirname "$0")
 cd "${DIR}"
 
-npm run build
+yarn run build
 
 upload_file () {
     FILE="$1"
