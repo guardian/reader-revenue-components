@@ -5,6 +5,18 @@ const MiniCssExtractPlugin = require("mini-css-extract-plugin");
 const OptimizeCSSAssetsPlugin = require("optimize-css-assets-webpack-plugin");
 const path = require('path');
 
+function buildTemplateParams() {
+    const features = [
+        'Promise',
+        'requestAnimationFrame',
+        'URL',
+    ];
+    const polyfillUrl = `https://polyfill.guim.co.uk/v2/polyfill.min.js?features=${encodeURIComponent(features.join(','))}`
+    return {
+        polyfillUrl
+    }
+}
+
 module.exports = {
     mode: 'production',
     optimization: {
@@ -24,8 +36,9 @@ module.exports = {
     plugins: [
         new HtmlWebpackPlugin({
             inlineSource: '.(js|css)$',
-            template: './src/index.html',
+            template: './src/index.template.html',
             minify: true,
+            templateParams: buildTemplateParams(),
         }),
         new MiniCssExtractPlugin({
             filename: "[name].css",
