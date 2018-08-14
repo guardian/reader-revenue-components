@@ -1,0 +1,26 @@
+@font-face {
+    font-family: 'Guardian Egyptian Web';
+    font-style: normal;
+    font-weight: 900;
+    src: url('./GHGuardianHeadline-Bold.woff2') format('woff2');
+}
+
+@font-face {
+    font-family: 'Guardian Text Egyptian Web';
+    font-style: normal;
+    font-weight: 400;
+    src: url('https://pasteup.guim.co.uk/fonts/1.0.0/hinting-off/kerning-on/original/GuardianTextEgyptianWeb/GuardianTextEgyptianWeb-Regular.woff2') format('woff2');
+}
+
+@font-face {
+    font-family: 'Guardian Text Sans Web';
+    font-style: normal;
+    font-weight: 700;
+    src: url("https://pasteup.guim.co.uk/fonts/1.0.0/hinting-off/kerning-on/original/GuardianTextSansWeb/GuardianTextSansWeb-Medium.woff2") format("woff2");
+}
+
+$f-serif-headline: 'Guardian Egyptian Web', Georgia, serif !default;
+
+$f-serif-text: 'Guardian Text Egyptian Web', Georgia, serif !default;
+
+$f-sans-serif-text: 'Guardian Text Sans Web', 'Helvetica Neue', Helvetica, Arial, 'Lucida Grande', sans-serif !default;

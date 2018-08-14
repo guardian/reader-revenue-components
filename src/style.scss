@@ -1,11 +1,6 @@
+@import 'fonts';
 @import 'normalize';
 @import 'mq';
-
-
-$f-serif-headline: 'Guardian Egyptian Web', Georgia, serif !default;
-$f-sans-serif-headline: 'Guardian Text Sans Web', 'Helvetica Neue', Helvetica, Arial, 'Lucida Grande', sans-serif !default;
-$f-serif-text: 'Guardian Text Egyptian Web', Georgia, serif !default;
-$f-sans-serif-text: 'Guardian Text Sans Web', 'Helvetica Neue', Helvetica, Arial, 'Lucida Grande', sans-serif !default;
 
 // grid settings
 $gs-gutter: 20px;
@@ -268,7 +263,6 @@ html, body {
     font-family: $f-sans-serif-text;
     // ENDs
 
-    font-weight: bold;
     text-decoration: none;
     cursor: pointer;
     display: inline-block;

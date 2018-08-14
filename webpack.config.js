@@ -47,13 +47,21 @@ module.exports = {
         new HtmlWebpackInlineSourcePlugin()
     ],
     module: {
-        rules: [{
-            test: /\.scss$/,
-            use: [
-              MiniCssExtractPlugin.loader,
-              "css-loader", // translates CSS into CommonJS
-              "sass-loader" // compiles Sass to CSS, using Node Sass by default
-            ]
-        }]
+        rules: [
+            {
+                test: /\.scss$/,
+                use: [
+                    MiniCssExtractPlugin.loader,
+                    "css-loader", // translates CSS into CommonJS
+                    "sass-loader" // compiles Sass to CSS, using Node Sass by default
+                ]
+            },
+            {
+                test: /\.(woff|woff2|eot|ttf|otf)$/,
+                use: [
+                    'file-loader'
+                ]
+            }
+        ]
     }
 };
