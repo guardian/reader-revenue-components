@@ -1,4 +1,4 @@
-import { isDocumentLoaded, read, isPaymentImageLoaded } from './util.js';
+import { isDocumentLoaded, isPaymentImageLoaded } from './util';
 
 import './styles/style.scss';
 
@@ -8,21 +8,23 @@ function getAcquisitionData() {
   let referrerPageViewId;
   let referrerUrl;
   try {
-      const optimizeEpicUrl = new URL(window.location.href);
-      referrerPageViewId = optimizeEpicUrl.searchParams.get('pvid');
-      referrerUrl = optimizeEpicUrl.searchParams.get('url');
-  } catch(_) {}
+    const optimizeEpicUrl = new URL(window.location.href);
+    referrerPageViewId = optimizeEpicUrl.searchParams.get('pvid');
+    referrerUrl = optimizeEpicUrl.searchParams.get('url');
+  } catch (_) {
+    // Carry on with undefined referrerPageViewId and referrerUrl
+  }
 
   return {
-      componentType: 'ACQUISITIONS_EPIC',
-      source: 'GUARDIAN_WEB',
-      componentId: 'iframe_control_epic',
-      abTest: {
-          name: 'iframe_or_not',
-          variant: 'iframe'
-      },
-      referrerPageViewId: referrerPageViewId,
-      referrerUrl: referrerUrl,
+    componentType: 'ACQUISITIONS_EPIC',
+    source: 'GUARDIAN_WEB',
+    componentId: 'iframe_control_epic',
+    abTest: {
+      name: 'iframe_or_not',
+      variant: 'iframe',
+    },
+    referrerPageViewId,
+    referrerUrl,
   };
 }
 
@@ -30,14 +32,14 @@ function enrichClickThroughURL(acquisitionData) {
 
   const button = document.querySelector('.js-epic-single-button');
   if (!button) {
-      return;
+    return;
   }
 
   let clickThroughUrl;
   try {
-      clickThroughUrl = new URL(button.href);
+    clickThroughUrl = new URL(button.href);
   } catch (_) {
-      return;
+    return;
   }
 
   // Acquisition data percent encoded by set() method
@@ -52,12 +54,14 @@ function useLocalCurrencySymbol() {
   }
 
   try {
-      const optimizeEpicUrl = new URL(window.location.href);
-      const localCurrencySymbol = optimizeEpicUrl.searchParams.get('lcs');
-      if (localCurrencySymbol) {
-          currencySymbol.innerHTML = localCurrencySymbol;
-      }
-  } catch (_) {};
+    const optimizeEpicUrl = new URL(window.location.href);
+    const localCurrencySymbol = optimizeEpicUrl.searchParams.get('lcs');
+    if (localCurrencySymbol) {
+      currencySymbol.innerHTML = localCurrencySymbol;
+    }
+  } catch (_) {
+    // Carry in case of error setting currency symbol
+  }
 }
 
 // channel for messages between Optimize Epic and Guardian frontend
@@ -69,9 +73,6 @@ const OPTIMIZE_EPIC_CHANNEL = 'OPTIMIZE_EPIC';
 // outgoing event types
 const EPIC_INITIALIZED = 'EPIC_INITIALIZED';
 const EPIC_HEIGHT = 'EPIC_HEIGHT';
-
-// incoming event types
-const FONTS = 'FONTS';
 
 function postMessage(messageType, data) {
   // TODO: target origin
@@ -88,17 +89,17 @@ function postIframeHeightMessage() {
 }
 
 function postEpicInitializedMessage() {
-  getIframeHeight().then(height => {
-      postMessage(EPIC_INITIALIZED, {
-          height,
-          componentId: 'iframe_control_epic', // TODO: perhaps component id could be based on iframe path?
-      });
+  getIframeHeight().then((height) => {
+    postMessage(EPIC_INITIALIZED, {
+      height,
+      componentId: 'iframe_control_epic', // TODO: perhaps component id could be based on iframe path?
+    });
   });
 }
 
 function startCommunication() {
-  self.addEventListener('resize', () => {
-      postIframeHeightMessage();
+  window.addEventListener('resize', () => {
+    postIframeHeightMessage();
   });
 
   postEpicInitializedMessage();
