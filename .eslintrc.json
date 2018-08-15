@@ -1,0 +1,47 @@
+{
+  "extends": [
+    "eslint:recommended",
+    "airbnb-base"
+  ],
+  "env": {
+    "amd": true,
+    "browser": true,
+    "node": true,
+    "jest": true
+  },
+  "parserOptions": {
+    "ecmaVersion": 6
+  },
+  "globals": {
+    // put blah: true to allow blah as a global
+  },
+  "rules": {
+    "curly": [2, "all"],
+    "no-trailing-spaces": 2,
+    "quotes": [2, "single"],
+    "wrap-iife": 2,
+    "no-console": 0,
+    "import/no-extraneous-dependencies": "off",
+    "padded-blocks": "off",
+    "import/prefer-default-export": "off",
+    "max-len": [
+      "error",
+      120,
+      2,
+      {
+        "ignoreUrls": true,
+        "ignoreComments": false,
+        "ignoreRegExpLiterals": true,
+        "ignoreStrings": true,
+        "ignoreTemplateLiterals": true
+      }
+    ]
+  },
+  "settings": {
+    "import/resolver": {
+      "webpack": {
+        "config": "webpack.config.js"
+      }
+    }
+  }
+}

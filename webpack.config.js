@@ -82,7 +82,14 @@ module.exports = {
                         presets: ['@babel/preset-env']
                     }
                 }
-              }
+            },
+            {
+                test: /\.js$/,
+                loader: "eslint-loader",
+                options: {
+                    // eslint options (if necessary)
+                }
+            }
         ]
     }
 };
