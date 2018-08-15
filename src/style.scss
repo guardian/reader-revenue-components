@@ -224,7 +224,7 @@ html, body {
     font-size: 1.125rem;
     line-height: 1.5rem;
     font-family: $f-serif-headline;
-    font-weight: 900;
+    font-weight: 700;
     // END
     margin: 0;
 }
@@ -261,6 +261,7 @@ html, body {
     font-size: .875rem;
     line-height: 1.375rem;
     font-family: $f-sans-serif-text;
+    font-weight: 500;
     // ENDs
 
     text-decoration: none;
@@ -311,7 +312,6 @@ html, body {
 .contributions__contribute {
     background-color: $news-main-1;
     color: #ffffff;
-    font-weight: bold;
     margin-top: $gs-baseline;
     text-align: left;
     padding-left: $gs-gutter * (3 / 4);;
