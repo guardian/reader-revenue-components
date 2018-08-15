@@ -80,11 +80,7 @@ function postMessage(messageType, data) {
 
 function getIframeHeight() {
   return Promise.all([isDocumentLoaded(), isPaymentImageLoaded()])
-    .then(() => read(() => document.querySelector('.js-root-element').getBoundingClientRect().height))
-    .then(height => {
-      console.log(height);
-      return height;
-    })
+    .then(() => document.querySelector('.js-root-element').getBoundingClientRect().height);
 }
 
 function postIframeHeightMessage() {
