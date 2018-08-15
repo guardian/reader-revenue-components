@@ -5,15 +5,32 @@ const MiniCssExtractPlugin = require("mini-css-extract-plugin");
 const OptimizeCSSAssetsPlugin = require("optimize-css-assets-webpack-plugin");
 const path = require('path');
 
-function buildTemplateParams() {
+function getPolyfillUrl() {
     const features = [
         'Promise',
         'requestAnimationFrame',
         'URL',
     ];
-    const polyfillUrl = `https://polyfill.guim.co.uk/v2/polyfill.min.js?features=${encodeURIComponent(features.join(','))}`
+    return `https://polyfill.guim.co.uk/v2/polyfill.min.js?features=${encodeURIComponent(features.join(','))}`
+}
+
+function getSupportUrl() {
+    const acquisitionData = {
+        componentType: 'ACQUISITIONS_EPIC',
+        source: 'GUARDIAN_WEB',
+        componentId: 'iframe_control_epic_no_js',
+        abTest: {
+            name: 'iframe_or_not',
+            variant: 'iframe'
+        }
+    };
+    return `https://support.theguardian.com?acquisitionData=${encodeURIComponent(JSON.stringify(acquisitionData))}`
+}
+
+function buildTemplateParams() {
     return {
-        polyfillUrl
+        supportUrl: getSupportUrl(),
+        polyfillUrl: getPolyfillUrl()
     }
 }
 
