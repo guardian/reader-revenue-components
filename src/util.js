@@ -12,14 +12,7 @@ function isPaymentImageLoaded() {
     return new Promise(resolve => image.onload = resolve);
 }
 
-function read(fn) {
-    return new Promise(resolve => window.requestAnimationFrame(() => {
-        resolve(fn());
-    }));
-}
-
 export {
     isDocumentLoaded,
     isPaymentImageLoaded,
-    read
 }
