@@ -58,8 +58,8 @@ module.exports = {
       templateParams: buildTemplateParams(),
     }),
     new MiniCssExtractPlugin({
-      filename: "[name].css",
-      chunkFilename: "[id].css"
+      filename: '[name].css',
+      chunkFilename: '[id].css'
     }),
     new HtmlWebpackInlineSourcePlugin()
   ],
@@ -69,8 +69,10 @@ module.exports = {
         test: /\.scss$/,
         use: [
           MiniCssExtractPlugin.loader,
-          "css-loader", // translates CSS into CommonJS
-          "sass-loader" // compiles Sass to CSS, using Node Sass by default
+          'css-loader',
+          // for config, see postcss.config.js and .browserslistrc
+          'postcss-loader',
+          'sass-loader'
         ]
       },
       {
@@ -84,11 +86,9 @@ module.exports = {
         }
       },
       {
+        // for config, see .eslintrc.json
         test: /\.js$/,
         loader: "eslint-loader",
-        options: {
-          // eslint options (if necessary)
-        }
       }
     ]
   }
