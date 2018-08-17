@@ -18,9 +18,9 @@ function getAcquisitionData() {
   return {
     componentType: 'ACQUISITIONS_EPIC',
     source: 'GUARDIAN_WEB',
-    componentId: 'iframe_control_epic',
+    componentId: 'iframe_control_epic_v2',
     abTest: {
-      name: 'iframe_or_not',
+      name: 'iframe_or_not_v2',
       variant: 'iframe',
     },
     referrerPageViewId,
@@ -92,7 +92,7 @@ function postEpicInitializedMessage() {
   getIframeHeight().then((height) => {
     postMessage(EPIC_INITIALIZED, {
       height,
-      componentId: 'iframe_control_epic', // TODO: perhaps component id could be based on iframe path?
+      componentId: 'iframe_control_epic_v2', // TODO: perhaps component id could be based on iframe path?
     });
   });
 }

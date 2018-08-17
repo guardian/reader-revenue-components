@@ -18,13 +18,13 @@ function getSupportUrl() {
   const acquisitionData = {
     componentType: 'ACQUISITIONS_EPIC',
     source: 'GUARDIAN_WEB',
-    componentId: 'iframe_control_epic_no_js',
+    componentId: 'iframe_control_epic_no_js_v2',
     abTest: {
-      name: 'iframe_or_not',
+      name: 'iframe_or_not_v2',
       variant: 'iframe'
     }
   };
-  return `https://support.theguardian.com?acquisitionData=${encodeURIComponent(JSON.stringify(acquisitionData))}`
+  return `https://support.theguardian.com/contribute?acquisitionData=${encodeURIComponent(JSON.stringify(acquisitionData))}`
 }
 
 function buildTemplateParams() {
